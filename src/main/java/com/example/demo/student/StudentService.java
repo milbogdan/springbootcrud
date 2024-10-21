@@ -1,11 +1,10 @@
 package com.example.demo.student;
 
+import com.example.demo.exception.ApiRequestBadRequestException;
+import com.example.demo.exception.ApiRequestNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,7 +40,7 @@ public class StudentService {
     public void deleteStudent(Long id) {
         boolean exists = studentRepository.existsById(id);
         if (!exists) {
-            throw new IllegalStateException("student does not exist");
+            throw new ApiRequestNotFoundException("Student not found");
         }
         studentRepository.deleteById(id);
     }
